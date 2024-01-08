@@ -1,16 +1,33 @@
+#include <Arduino.h>
 #include "keypad.h"
-#include "Arduino.h"
+#include "pagebase.h"
+#include "pages.h"
 
-void setup() {
-  Serial.begin(9600);
-  Keypad::initialize();
+static Page *activePage = nullptr;
+
+static void loadPage(Page *page)
+{
+  if (activePage != nullptr)
+  {
+    delete activePage;
+  }
+
+  activePage = page;
+  activePage->start();
 }
 
-void loop() {
-  // temp for testing
-  for (int i = 0; i < 12; i++) {
-    if (Keypad::isButtonDown(static_cast<Keypad::Button>(i))) {
-      Serial.println(Keypad::buttonToChar(static_cast<Keypad::Button>(i)));
-    }
+void setup()
+{
+  Serial.begin(9600);
+  Keypad::initialize();
+
+  loadPage(new MainPage());
+}
+
+void loop()
+{
+  if (activePage != nullptr)
+  {
+    activePage->loop();
   }
 }
