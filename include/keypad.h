@@ -1,4 +1,5 @@
 #pragma once
+#include "Arduino.h"
 
 class Keypad {
 public:
@@ -26,7 +27,7 @@ public:
   }
 
   static bool isButton(Button key) {
-    int *match = pinMatch[key];
+    const int *match = pinMatch[key];
     bool a = digitalRead(match[0]) == LOW;
     bool b = digitalRead(match[1]) == LOW;
     return a && b;
