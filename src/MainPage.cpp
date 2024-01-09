@@ -1,10 +1,13 @@
 #include "Pages.h"
 #include "Keypad.h"
 #include "TelephoneController.h"
+#include "LCD.h"
 
 void MainPage::start()
 {
     Serial.println("MainPage::start()");
+    lcd.print("MAIN");
+    lcd.setCursor(0, 1);
 }
 
 void MainPage::loop()

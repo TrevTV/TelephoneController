@@ -2,6 +2,7 @@
 #include "Keypad.h"
 #include "TelephoneController.h"
 #include "AudioPlayer.h"
+#include "LCD.h"
 
 AudioPlayerPage::AudioPlayerPage(int track)
 {
@@ -11,6 +12,8 @@ AudioPlayerPage::AudioPlayerPage(int track)
 void AudioPlayerPage::start()
 {
     Serial.println("AudioPlayerPage::start()");
+    lcd.print("AUDIO");
+    lcd.setCursor(0, 1);
 }
 
 void AudioPlayerPage::loop()

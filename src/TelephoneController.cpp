@@ -4,6 +4,7 @@
 #include "AudioPlayer.h"
 #include "Page.h"
 #include "Pages.h"
+#include "LCD.h"
 
 Page *activePage = nullptr;
 Keypad *keypad = nullptr;
@@ -20,6 +21,7 @@ void loadPage(Page *page)
     delete activePage;
   }
 
+  lcd.clear();
   activePage = page;
   activePage->start();
 }
@@ -27,9 +29,12 @@ void loadPage(Page *page)
 void setup()
 {
   Serial.begin(9600);
+
   keypad = new Keypad();
   keypad->initialize();
+
   audioPlayer_initialize();
+  lcd_initialize();
 
   loadPage(new MainPage());
 }
