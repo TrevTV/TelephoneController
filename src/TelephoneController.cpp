@@ -48,8 +48,3 @@ void loop()
     activePage->loop();
   }
 }
-
-Keypad *getKeypad()
-{
-  return keypad;
-}

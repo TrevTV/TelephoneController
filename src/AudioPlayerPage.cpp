@@ -18,7 +18,7 @@ void AudioPlayerPage::start()
 
 void AudioPlayerPage::loop()
 {
-    if (getKeypad()->isButtonDown(Button::ONE))
+    if (keypad->isButtonDown(Button::ONE))
     {
         Serial.println("AudioPlayerPage::loop() - Button 1 pressed");
         audioPlayer_playTrack(trackNumber);
