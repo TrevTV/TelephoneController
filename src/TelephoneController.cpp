@@ -1,12 +1,20 @@
 #include <Arduino.h>
+#include "TelephoneController.h"
 #include "keypad.h"
+#include "audioplayer.h"
 #include "pagebase.h"
 #include "pages.h"
 
-static Page *activePage = nullptr;
+Page *activePage = nullptr;
+Keypad *keypad = nullptr;
 
-static void loadPage(Page *page)
+void loadPage(Page *page)
 {
+  if (page == activePage)
+  {
+    return;
+  }
+
   if (activePage != nullptr)
   {
     delete activePage;
@@ -19,13 +27,17 @@ static void loadPage(Page *page)
 void setup()
 {
   Serial.begin(9600);
-  Keypad::initialize();
+  keypad = new Keypad();
+  keypad->initialize();
+  audioPlayer_initialize();
 
   loadPage(new MainPage());
 }
 
 void loop()
 {
+  audioPlayer_loop();
+
   if (activePage != nullptr)
   {
     activePage->loop();

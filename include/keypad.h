@@ -1,26 +1,26 @@
 #pragma once
 #include <Arduino.h>
 
+enum Button
+{
+  ONE,
+  TWO,
+  THREE,
+  FOUR,
+  FIVE,
+  SIX,
+  SEVEN,
+  EIGHT,
+  NINE,
+  STAR,
+  ZERO,
+  POUND,
+};
+
 class Keypad
 {
 public:
-  enum Button
-  {
-    ONE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    STAR,
-    ZERO,
-    POUND,
-  };
-
-  static void initialize()
+  void initialize()
   {
     const int numPins = 7;
     const int pins[numPins] = {2, 3, 4, 5, 6, 7, 8};
@@ -30,7 +30,7 @@ public:
     }
   }
 
-  static bool isButton(Button key)
+  bool isButton(Button key)
   {
     const int *match = pinMatch[key];
     bool a = digitalRead(match[0]) == LOW;
@@ -38,10 +38,8 @@ public:
     return a && b;
   }
 
-  static bool isButtonUp(Button key)
+  bool isButtonUp(Button key)
   {
-    static bool buttonStates[12] = {false};
-
     bool currentState = isButton(key);
     bool wasPressed = buttonStates[key] && !currentState;
     buttonStates[key] = currentState;
@@ -49,10 +47,8 @@ public:
     return wasPressed;
   }
 
-  static bool isButtonDown(Button key)
+  bool isButtonDown(Button key)
   {
-    static bool buttonStates[12] = {false};
-
     bool currentState = isButton(key);
     bool wasReleased = !buttonStates[key] && currentState;
     buttonStates[key] = currentState;
@@ -60,13 +56,14 @@ public:
     return wasReleased;
   }
 
-  static char buttonToChar(Button key)
+  char buttonToChar(Button key)
   {
     const char charList[12] = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'};
     return charList[key];
   }
 
 private:
+  static bool buttonStates[12];
   const static int pinMatch[12][2];
 };
 

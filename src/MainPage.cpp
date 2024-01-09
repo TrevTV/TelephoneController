@@ -1,5 +1,6 @@
 #include "pages.h"
 #include "keypad.h"
+#include "telephonecontroller.h"
 
 void MainPage::start()
 {
@@ -8,13 +9,9 @@ void MainPage::start()
 
 void MainPage::loop()
 {
-    // temp for testing
-    for (int i = 0; i < 12; i++)
+    if (getKeypad()->isButtonDown(Button::ONE))
     {
-        if (Keypad::isButtonDown(static_cast<Keypad::Button>(i)))
-        {
-            Serial.print("Button down: ");
-            Serial.println(Keypad::buttonToChar(static_cast<Keypad::Button>(i)));
-        }
+        Serial.println("MainPage::loop() - Button 1 pressed");
+        loadPage(new AudioPlayerPage(1));
     }
 }
