@@ -42,9 +42,14 @@ public:
 
 extern SoftwareSerial secondarySerial;
 extern DFMiniMp3<SoftwareSerial, Mp3Notify> dfmp3;
+extern int volume;
 
 void audioPlayer_initialize();
 
 void audioPlayer_loop();
 
 void audioPlayer_playTrack(int track);
+
+void audioPlayer_volumeUp();
+
+void audioPlayer_volumeDown();

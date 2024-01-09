@@ -10,6 +10,13 @@ public:
     void loop();
 };
 
+class AudioSelectionPage : public Page
+{
+public:
+    void start();
+    void loop();
+};
+
 class AudioPlayerPage : public Page
 {
 public:
@@ -17,5 +24,10 @@ public:
     void start();
     void loop();
 private:
+    bool isPlaying;
+
+    int frameCount;
     int trackNumber;
+    const char* trackName;
+    const static char *tracksByIndex[12];
 };

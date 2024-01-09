@@ -15,6 +15,6 @@ void MainPage::loop()
     if (keypad->isButtonDown(Button::ONE))
     {
         Serial.println("MainPage::loop() - Button 1 pressed");
-        loadPage(new AudioPlayerPage(1));
+        loadPage(new AudioSelectionPage());
     }
 }
