@@ -43,22 +43,8 @@ public:
 extern SoftwareSerial secondarySerial;
 extern DFMiniMp3<SoftwareSerial, Mp3Notify> dfmp3;
 
-static inline void audioPlayer_initialize()
-{
-  Serial.println("AudioPlayer::initialize()");
+void audioPlayer_initialize();
 
-  dfmp3.begin();
-  dfmp3.reset();
+void audioPlayer_loop();
 
-  dfmp3.setVolume(8);
-}
-
-static inline void audioPlayer_loop()
-{
-  dfmp3.loop();
-}
-
-static inline void audioPlayer_playTrack(int track)
-{
-  dfmp3.playMp3FolderTrack(track);
-}
+void audioPlayer_playTrack(int track);

@@ -1,6 +1,7 @@
 #pragma once
+
 #include <Arduino.h>
-#include "pagebase.h"
+#include "Page.h"
 
 class MainPage : public Page
 {

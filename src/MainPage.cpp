@@ -1,6 +1,6 @@
-#include "pages.h"
-#include "keypad.h"
-#include "telephonecontroller.h"
+#include "Pages.h"
+#include "Keypad.h"
+#include "TelephoneController.h"
 
 void MainPage::start()
 {

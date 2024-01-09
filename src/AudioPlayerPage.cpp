@@ -1,7 +1,7 @@
-#include "pages.h"
-#include "keypad.h"
-#include "telephonecontroller.h"
-#include "audioplayer.h"
+#include "Pages.h"
+#include "Keypad.h"
+#include "TelephoneController.h"
+#include "AudioPlayer.h"
 
 AudioPlayerPage::AudioPlayerPage(int track)
 {

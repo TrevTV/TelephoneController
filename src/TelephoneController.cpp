@@ -1,9 +1,9 @@
 #include <Arduino.h>
 #include "TelephoneController.h"
-#include "keypad.h"
-#include "audioplayer.h"
-#include "pagebase.h"
-#include "pages.h"
+#include "Keypad.h"
+#include "AudioPlayer.h"
+#include "Page.h"
+#include "Pages.h"
 
 Page *activePage = nullptr;
 Keypad *keypad = nullptr;
@@ -42,4 +42,9 @@ void loop()
   {
     activePage->loop();
   }
+}
+
+Keypad *getKeypad()
+{
+  return keypad;
 }
