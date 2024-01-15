@@ -31,3 +31,17 @@ private:
     const char* trackName;
     const static char *tracksByIndex[12];
 };
+
+class NumpadPage : public Page
+{
+public:
+    void start();
+    void loop();
+};
+
+class GamingPage : public Page
+{
+public:
+    void start();
+    void loop();
+};

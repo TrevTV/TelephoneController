@@ -1,55 +1,96 @@
+#include <Arduino.h>
 #include "Keypad.h"
 
 bool Keypad::buttonStates[12] = {false};
-const int Keypad::pinMatch[12][2] = {
-    {8, 6}, /* ONE */
-    {8, 5}, /* TWO */
-    {8, 2}, /* THREE */
-    {7, 6}, /* FOUR */
-    {7, 5}, /* FIVE */
-    {7, 2}, /* SIX */
-    {3, 6}, /* SEVEN */
-    {3, 5}, /* EIGHT */
-    {3, 2}, /* NINE */
-    {4, 6}, /* STAR */
-    {4, 5}, /* ZERO */
-    {4, 2}, /* POUND  */
-};
+bool Keypad::prevButtonStates[12] = {false};
+
+const int Keypad::pinCount = 7;
+const int Keypad::pins[7] = { 2, 3, 4, 5, 6, 7, 8 };
+int Keypad::pinStates[7] = { HIGH };
 
 void Keypad::initialize()
 {
-    const int numPins = 7;
-    const int pins[numPins] = {2, 3, 4, 5, 6, 7, 8};
-    for (int i = 0; i < numPins; i++)
+    for (int i = 0; i < pinCount; i++)
     {
         pinMode(pins[i], INPUT_PULLUP);
     }
 }
 
+void Keypad::checkButtonStates()
+{
+    for (int i = 0; i < 12; i++)
+    {
+        prevButtonStates[i] = buttonStates[i];
+        buttonStates[i] = false;
+    }
+
+    for (int i = 0; i < pinCount; i++)
+    {
+        pinStates[i] = digitalRead(pins[i]);
+    }
+
+    if (pinActive(8))
+    {
+        parseRow(Button::ONE, Button::TWO, Button::THREE);
+    }
+
+    if (pinActive(7))
+    {
+        parseRow(Button::FOUR, Button::FIVE, Button::SIX);
+    }
+
+    if (pinActive(3))
+    {
+        parseRow(Button::SEVEN, Button::EIGHT, Button::NINE);
+    }
+
+    if (pinActive(4))
+    {
+        parseRow(Button::STAR, Button::ZERO, Button::POUND);
+    }
+}
+
+void Keypad::parseRow(Button a, Button b, Button c) {
+    if (pinActive(6)) {
+        buttonStates[a] = true;
+    }
+    else {
+        buttonStates[a] = false;
+    }
+
+    if (pinActive(5)) {
+        buttonStates[b] = true;
+    }
+    else {
+        buttonStates[b] = false;
+    }
+
+    if (pinActive(2)) {
+        buttonStates[c] = true;
+    }
+    else {
+        buttonStates[c] = false;
+    }
+}
+
+bool Keypad::pinActive(int pin) {
+    // We subtract 2 from the pin number as the array is 0-indexed and the pin numbers start at 2
+    return pinStates[pin - 2] == LOW;
+}
+
 bool Keypad::isButton(Button key)
 {
-    const int *match = pinMatch[key];
-    bool a = digitalRead(match[0]) == LOW;
-    bool b = digitalRead(match[1]) == LOW;
-    return a && b;
+    return buttonStates[key];
 }
 
 bool Keypad::isButtonUp(Button key)
 {
-    bool currentState = isButton(key);
-    bool wasPressed = buttonStates[key] && !currentState;
-    buttonStates[key] = currentState;
-
-    return wasPressed;
+    return prevButtonStates[key] && !buttonStates[key];
 }
 
 bool Keypad::isButtonDown(Button key)
 {
-    bool currentState = isButton(key);
-    bool wasReleased = !buttonStates[key] && currentState;
-    buttonStates[key] = currentState;
-
-    return wasReleased;
+    return !prevButtonStates[key] && buttonStates[key];
 }
 
 char Keypad::buttonToChar(Button key)

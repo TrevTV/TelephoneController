@@ -39,12 +39,29 @@ void setup()
   loadPage(new MainPage());
 }
 
+const int memory_test[8] = {1, 2, 3, 4, 5, 6, 7, 8};
+
 void loop()
 {
+  keypad->checkButtonStates();
   audioPlayer_loop();
 
   if (activePage != nullptr)
   {
     activePage->loop();
+  }
+
+  for (int i = 0; i < 8; i++)
+  {
+    Serial.println("Memory test: " + String(memory_test[i]));
+    if (memory_test[i] > 8 || memory_test[i] < 1)
+    {
+      Serial.println("Memory test failed with value: " + String(memory_test[i]));
+      while (true)
+      {
+        /* code */
+      }
+      
+    }
   }
 }
