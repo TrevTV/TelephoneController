@@ -1,47 +1,53 @@
 #pragma once
 
 #include <Arduino.h>
-#include "Page.h"
 
-class MainPage : public Page
+class MainPage
 {
 public:
-    void start();
-    void loop();
+    static const int ID = 0;
+    static void start();
+    static void loop();
 };
 
-class AudioSelectionPage : public Page
+class AudioSelectionPage
 {
 public:
-    void start();
-    void loop();
+    static const int ID = 1;
+    static void start();
+    static void loop();
 };
 
-class AudioPlayerPage : public Page
+class AudioPlayerPage
 {
 public:
-    AudioPlayerPage(int track);
-    void start();
-    void loop();
+    static const int ID = 2;
+    static int trackNumber;
+    static void start();
+    static void loop();
 private:
-    bool isPlaying;
+    static bool isPlaying;
 
-    int frameCount;
-    int trackNumber;
-    const char* trackName;
-    const static char *tracksByIndex[12];
+    static int frameCount;
+    static int trackNameLength;
+    static const char* trackName;
+    static const char *tracksByIndex[12];
+    
+    static void refreshDisplay();
 };
 
-class NumpadPage : public Page
+class NumpadPage
 {
 public:
-    void start();
-    void loop();
+    static const int ID = 3;
+    static void start();
+    static void loop();
 };
 
-class GamingPage : public Page
+class GamingPage
 {
 public:
-    void start();
-    void loop();
+    static const int ID = 4;
+    static void start();
+    static void loop();
 };

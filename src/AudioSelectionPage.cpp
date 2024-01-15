@@ -12,12 +12,20 @@ void AudioSelectionPage::start()
 
 void AudioSelectionPage::loop()
 {
-    if (keypad->isButtonDown(Button::ONE)) {
+    if (keypad.isButtonDown(Button::ONE)) {
         Serial.println("AudioSelectionPage::loop() - Button::ONE");
-        loadPage(new AudioPlayerPage(1));
+        AudioPlayerPage::trackNumber = 1;
+        loadPage(AudioPlayerPage::ID);
     }
-    if (keypad->isButtonDown(Button::TWO)) {
+    if (keypad.isButtonDown(Button::TWO)) {
         Serial.println("AudioSelectionPage::loop() - Button::TWO");
-        loadPage(new AudioPlayerPage(2));
+        AudioPlayerPage::trackNumber = 2;
+        loadPage(AudioPlayerPage::ID);
+    }
+    if (keypad.isButtonDown(Button::STAR))
+    {
+        Serial.println("AudioSelectionPage::loop() - Button::STAR");
+        dfmp3.stop();
+        loadPage(MainPage::ID);
     }
 }

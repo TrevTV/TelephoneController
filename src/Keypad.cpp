@@ -33,18 +33,15 @@ void Keypad::checkButtonStates()
     {
         parseRow(Button::ONE, Button::TWO, Button::THREE);
     }
-
-    if (pinActive(7))
+    else if (pinActive(7))
     {
         parseRow(Button::FOUR, Button::FIVE, Button::SIX);
     }
-
-    if (pinActive(3))
+    else if (pinActive(3))
     {
         parseRow(Button::SEVEN, Button::EIGHT, Button::NINE);
     }
-
-    if (pinActive(4))
+    else if (pinActive(4))
     {
         parseRow(Button::STAR, Button::ZERO, Button::POUND);
     }
@@ -53,6 +50,7 @@ void Keypad::checkButtonStates()
 void Keypad::parseRow(Button a, Button b, Button c) {
     if (pinActive(6)) {
         buttonStates[a] = true;
+        return;
     }
     else {
         buttonStates[a] = false;
@@ -60,6 +58,7 @@ void Keypad::parseRow(Button a, Button b, Button c) {
 
     if (pinActive(5)) {
         buttonStates[b] = true;
+        return;
     }
     else {
         buttonStates[b] = false;
@@ -67,6 +66,7 @@ void Keypad::parseRow(Button a, Button b, Button c) {
 
     if (pinActive(2)) {
         buttonStates[c] = true;
+        return;
     }
     else {
         buttonStates[c] = false;

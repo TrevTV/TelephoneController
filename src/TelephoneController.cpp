@@ -1,67 +1,74 @@
 #include <Arduino.h>
+#include <HID-Project.h>
 #include "TelephoneController.h"
 #include "Keypad.h"
-#include "AudioPlayer.h"
-#include "Page.h"
-#include "Pages.h"
 #include "LCD.h"
+#include "Pages.h"
+#include "AudioPlayer.h"
 
-Page *activePage = nullptr;
-Keypad *keypad = nullptr;
+Keypad keypad;
+int activePage = -1;
 
-void loadPage(Page *page)
+void loadPage(int page)
 {
   if (page == activePage)
   {
     return;
   }
 
-  if (activePage != nullptr)
-  {
-    delete activePage;
-  }
-
   lcd.clear();
   activePage = page;
-  activePage->start();
+
+  switch (activePage) {
+    case MainPage::ID:
+      MainPage::start();
+      break;
+    case AudioSelectionPage::ID:
+      AudioSelectionPage::start();
+      break;
+    case AudioPlayerPage::ID:
+      AudioPlayerPage::start();
+      break;
+    case NumpadPage::ID:
+      NumpadPage::start();
+      break;
+    case GamingPage::ID:
+      GamingPage::start();
+      break;
+  }
 }
 
 void setup()
 {
+  delay(5000);
   Serial.begin(9600);
 
-  keypad = new Keypad();
-  keypad->initialize();
-
+  keypad.initialize();
   audioPlayer_initialize();
   lcd_initialize();
 
-  loadPage(new MainPage());
+  loadPage(MainPage::ID);
 }
-
-const int memory_test[8] = {1, 2, 3, 4, 5, 6, 7, 8};
 
 void loop()
 {
-  keypad->checkButtonStates();
-  audioPlayer_loop();
+  keypad.checkButtonStates();
 
-  if (activePage != nullptr)
-  {
-    activePage->loop();
-  }
-
-  for (int i = 0; i < 8; i++)
-  {
-    Serial.println("Memory test: " + String(memory_test[i]));
-    if (memory_test[i] > 8 || memory_test[i] < 1)
-    {
-      Serial.println("Memory test failed with value: " + String(memory_test[i]));
-      while (true)
-      {
-        /* code */
-      }
-      
-    }
+  switch (activePage) {
+    case MainPage::ID:
+      MainPage::loop();
+      break;
+    case AudioSelectionPage::ID:
+      AudioSelectionPage::loop();
+      break;
+    case AudioPlayerPage::ID:
+      AudioPlayerPage::loop();
+      break;
+    case NumpadPage::ID:
+      NumpadPage::loop();
+      break;
+    case GamingPage::ID:
+      GamingPage::loop();
+      break;
   }
 }

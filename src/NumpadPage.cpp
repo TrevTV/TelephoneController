@@ -15,17 +15,17 @@ void NumpadPage::start()
 
 void NumpadPage::loop()
 {
-    if (keypad->isButtonDown(Button::STAR)) {
+    if (keypad.isButtonDown(Button::STAR)) {
         Serial.println("NumpadPage::loop() - Button::STAR");
-        loadPage(new MainPage());
+        //loadPage(new MainPage());
     }
 
     for (int i = 0; i < 12; i++)
     {
         if (i == 10) continue; // Skip the * key
 
-        if (keypad->isButtonDown((Button)i)) {
-            char key = keypad->buttonToChar((Button)i);
+        if (keypad.isButtonDown((Button)i)) {
+            char key = keypad.buttonToChar((Button)i);
             Serial.print("NumpadPage::loop() - [Down] Button::");
             Serial.println(key);
             Keyboard.print(key);

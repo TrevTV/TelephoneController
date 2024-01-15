@@ -15,12 +15,12 @@ void GamingPage::start()
 
 void GamingPage::loop()
 {
-    /* if (keypad->isButtonDown(Button::STAR)) {
+    /* if (keypad.isButtonDown(Button::STAR)) {
         Serial.println("GamingPage::loop() - Button::STAR");
         loadPage(new MainPage());
     } */
 
-    if (keypad->isButton(Button::FIVE)) {
+    if (keypad.isButton(Button::FIVE)) {
         Serial.println("GamingPage::loop() - Button::FIVE");
         Keyboard.press('w');
     }
@@ -28,7 +28,7 @@ void GamingPage::loop()
         Keyboard.release('w');
     }
 
-    if (keypad->isButton(Button::SEVEN)) {
+    if (keypad.isButton(Button::SEVEN)) {
         Serial.println("GamingPage::loop() - Button::SEVEN");
         Keyboard.press('a');
     }
@@ -36,7 +36,7 @@ void GamingPage::loop()
         Keyboard.release('a');
     }
 
-    if (keypad->isButton(Button::EIGHT)) {
+    if (keypad.isButton(Button::EIGHT)) {
         Serial.println("GamingPage::loop() - Button::EIGHT");
         Keyboard.press('s');
     }
@@ -44,7 +44,7 @@ void GamingPage::loop()
         Keyboard.release('s');
     }
 
-    if (keypad->isButton(Button::NINE)) {
+    if (keypad.isButton(Button::NINE)) {
         Serial.println("GamingPage::loop() - Button::NINE");
         Keyboard.press('d');
     }
@@ -52,7 +52,7 @@ void GamingPage::loop()
         Keyboard.release('d');
     }
 
-    if (keypad->isButton(Button::FOUR)) {
+    if (keypad.isButton(Button::FOUR)) {
         Serial.println("GamingPage::loop() - Button::FOUR");
         Keyboard.press(KEY_LEFT_SHIFT);
     }
@@ -60,7 +60,7 @@ void GamingPage::loop()
         Keyboard.release(KEY_LEFT_SHIFT);
     }
 
-    if (keypad->isButton(Button::POUND)) {
+    if (keypad.isButton(Button::POUND)) {
         Serial.println("GamingPage::loop() - Button::POUND");
         Keyboard.press(KEY_SPACE);
     }

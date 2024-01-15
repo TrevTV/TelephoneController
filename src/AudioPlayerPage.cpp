@@ -22,29 +22,34 @@ const char *AudioPlayerPage::tracksByIndex[12] =
         ""
     };
 
-AudioPlayerPage::AudioPlayerPage(int track)
-{
-    trackNumber = track;
-    trackName = tracksByIndex[trackNumber - 1];
-}
+uint8_t pauseIcon[8] = {0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b};
+uint8_t playIcon[8] = {0x10, 0x18, 0x1c, 0x1e, 0x1e, 0x1c, 0x18, 0x10};
+
+int AudioPlayerPage::trackNumber = 0;
+bool AudioPlayerPage::isPlaying = true;
+int AudioPlayerPage::frameCount = 0;
+int AudioPlayerPage::trackNameLength = 0;
+const char *AudioPlayerPage::trackName = "";
 
 void AudioPlayerPage::start()
 {
     Serial.println("AudioPlayerPage::start()");
+    trackName = tracksByIndex[trackNumber - 1];
+    trackNameLength = strlen(trackName);
 
     audioPlayer_playTrack(trackNumber);
 
-    lcd.print(trackName);
-    lcd.setCursor(0, 1);
-    lcd.print("TRACK ");
-    lcd.print(trackNumber);
+    lcd.createChar(0, pauseIcon);
+    lcd.createChar(1, playIcon);
+    
+    refreshDisplay();
 }
 
 void AudioPlayerPage::loop()
 {
     frameCount++;
 
-    if (keypad->isButtonDown(Button::FIVE))
+    if (keypad.isButtonDown(Button::FIVE))
     {
         Serial.println("AudioPlayerPage::loop() - Button::FIVE");
         isPlaying = !isPlaying;
@@ -56,32 +61,43 @@ void AudioPlayerPage::loop()
         {
             dfmp3.pause();
         }
+
+        refreshDisplay();
     }
 
-    if (keypad->isButtonDown(Button::TWO))
+    if (keypad.isButtonDown(Button::TWO))
     {
         Serial.println("AudioPlayerPage::loop() - Button::TWO");
         audioPlayer_volumeUp();
+        refreshDisplay();
     }
 
-    if (keypad->isButtonDown(Button::EIGHT))
+    if (keypad.isButtonDown(Button::EIGHT))
     {
         Serial.println("AudioPlayerPage::loop() - Button::EIGHT");
         audioPlayer_volumeDown();
+        refreshDisplay();
     }
 
-    if (keypad->isButtonDown(Button::STAR))
+    if (keypad.isButtonDown(Button::STAR))
     {
         Serial.println("AudioPlayerPage::loop() - Button::STAR");
         dfmp3.stop();
-        loadPage(new AudioSelectionPage());
-    }
-
-    if (frameCount % 600 == 0)
-    {
-        lcd.scrollDisplayLeft();
-        frameCount = 0;
+        loadPage(AudioSelectionPage::ID);
     }
 
     delay(1);
+}
+
+void AudioPlayerPage::refreshDisplay() {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(trackName);
+
+    lcd.setCursor(0, 1);
+    lcd.write(isPlaying ? 1 : 0);
+
+    lcd.print(" VOL: ");
+    lcd.print(volume);
+    lcd.print(" ");
 }

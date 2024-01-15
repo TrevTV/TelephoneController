@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Page.h"
 #include "Keypad.h"
 
-extern Page *activePage;
-extern Keypad *keypad;
+extern Keypad keypad;
+extern int activePage;
 
-void loadPage(Page *page);
+void loadPage(int page);

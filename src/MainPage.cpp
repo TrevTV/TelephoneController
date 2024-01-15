@@ -12,19 +12,19 @@ void MainPage::start()
 
 void MainPage::loop()
 {
-    if (keypad->isButtonDown(Button::ONE))
+    if (keypad.isButtonDown(Button::ONE))
     {
         Serial.println("MainPage::loop() - Button 1 pressed");
-        loadPage(new AudioSelectionPage());
+        loadPage(AudioSelectionPage::ID);
     }
-    if (keypad->isButtonDown(Button::TWO))
+    if (keypad.isButtonDown(Button::TWO))
     {
         Serial.println("MainPage::loop() - Button 2 pressed");
-        loadPage(new NumpadPage());
+        loadPage(NumpadPage::ID);
     }
-    if (keypad->isButtonDown(Button::THREE))
+    if (keypad.isButtonDown(Button::THREE))
     {
         Serial.println("MainPage::loop() - Button 3 pressed");
-        loadPage(new GamingPage());
+        loadPage(GamingPage::ID);
     }
 }
