@@ -5,7 +5,6 @@
 
 void MainPage::start()
 {
-    Serial.println("MainPage::start()");
     lcd.print("MAIN");
     lcd.setCursor(0, 1);
 }
@@ -14,17 +13,14 @@ void MainPage::loop()
 {
     if (keypad.isButtonDown(Button::ONE))
     {
-        Serial.println("MainPage::loop() - Button 1 pressed");
         loadPage(AudioSelectionPage::ID);
     }
     if (keypad.isButtonDown(Button::TWO))
     {
-        Serial.println("MainPage::loop() - Button 2 pressed");
         loadPage(NumpadPage::ID);
     }
     if (keypad.isButtonDown(Button::THREE))
     {
-        Serial.println("MainPage::loop() - Button 3 pressed");
         loadPage(GamingPage::ID);
     }
 }

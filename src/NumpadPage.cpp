@@ -7,7 +7,6 @@
 
 void NumpadPage::start()
 {
-    Serial.println("NumpadPage::start()");
     lcd.print("NUMPAD MODE");
     lcd.setCursor(0, 1);
     lcd.print("PRESS * TO EXIT");
@@ -16,7 +15,6 @@ void NumpadPage::start()
 void NumpadPage::loop()
 {
     if (keypad.isButtonDown(Button::STAR)) {
-        Serial.println("NumpadPage::loop() - Button::STAR");
         //loadPage(new MainPage());
     }
 
@@ -26,8 +24,6 @@ void NumpadPage::loop()
 
         if (keypad.isButtonDown((Button)i)) {
             char key = keypad.buttonToChar((Button)i);
-            Serial.print("NumpadPage::loop() - [Down] Button::");
-            Serial.println(key);
             Keyboard.print(key);
         }
     }

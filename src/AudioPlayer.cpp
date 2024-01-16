@@ -6,8 +6,6 @@ int volume = 8;
 
 void audioPlayer_initialize()
 {
-  Serial.println("AudioPlayer::initialize()");
-
   dfmp3.begin();
   dfmp3.reset();
 

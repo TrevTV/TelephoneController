@@ -32,7 +32,6 @@ const char *AudioPlayerPage::trackName = "";
 
 void AudioPlayerPage::start()
 {
-    Serial.println("AudioPlayerPage::start()");
     trackName = tracksByIndex[trackNumber - 1];
     trackNameLength = strlen(trackName);
 
@@ -50,7 +49,6 @@ void AudioPlayerPage::loop()
 
     if (keypad.isButtonDown(Button::FIVE))
     {
-        Serial.println("AudioPlayerPage::loop() - Button::FIVE");
         isPlaying = !isPlaying;
         if (isPlaying)
         {
@@ -66,27 +64,21 @@ void AudioPlayerPage::loop()
 
     if (keypad.isButtonDown(Button::TWO))
     {
-        Serial.println("AudioPlayerPage::loop() - Button::TWO");
         audioPlayer_volumeUp();
         refreshDisplay();
     }
 
     if (keypad.isButtonDown(Button::EIGHT))
     {
-        Serial.println("AudioPlayerPage::loop() - Button::EIGHT");
         audioPlayer_volumeDown();
         refreshDisplay();
     }
 
     if (keypad.isButtonDown(Button::STAR))
     {
-        Serial.println("AudioPlayerPage::loop() - Button::STAR");
         dfmp3.stop();
         //loadPage(AudioSelectionPage::ID);
     }
-
-    Serial.print("Status: ");
-    Serial.println(dfmp3.getStatus().state);
 
     delay(1);
 }
