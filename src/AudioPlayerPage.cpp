@@ -6,20 +6,19 @@
 
 // there isn't a way to get the file name from the SD card, so we have to hardcode the track names
 // https://github.com/Makuna/DFMiniMp3/issues/97
-const char *AudioPlayerPage::tracksByIndex[12] =
+const char *AudioPlayerPage::tracksByIndex[11] =
     {
-        "I Really Want To Stay At Your House",
+        "IRWTSAYH",
         "Elevator Music",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "Let You Down",
+        "Phantom Liberty",
+        "INFATUATION",
+        "GLOOMTOWN BRATS",
+        "Dont Fence Me In",
+        "gone",
+        "Ghost",
+        "The Honcho",
+        "Never Say No"
     };
 
 uint8_t pauseIcon[8] = {0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b};
@@ -83,8 +82,11 @@ void AudioPlayerPage::loop()
     {
         Serial.println("AudioPlayerPage::loop() - Button::STAR");
         dfmp3.stop();
-        loadPage(AudioSelectionPage::ID);
+        //loadPage(AudioSelectionPage::ID);
     }
+
+    Serial.print("Status: ");
+    Serial.println(dfmp3.getStatus().state);
 
     delay(1);
 }
@@ -100,4 +102,10 @@ void AudioPlayerPage::refreshDisplay() {
     lcd.print(" VOL: ");
     lcd.print(volume);
     lcd.print(" ");
+}
+
+void AudioPlayerPage::onTrackComplete() {
+    isPlaying = false;
+    refreshDisplay();
+    lcd.print("FINISH");
 }

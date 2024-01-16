@@ -25,13 +25,14 @@ public:
     static int trackNumber;
     static void start();
     static void loop();
+    static void onTrackComplete();
 private:
     static bool isPlaying;
 
     static int frameCount;
     static int trackNameLength;
     static const char* trackName;
-    static const char *tracksByIndex[12];
+    static const char *tracksByIndex[11];
     
     static void refreshDisplay();
 };

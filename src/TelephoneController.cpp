@@ -40,7 +40,6 @@ void loadPage(int page)
 
 void setup()
 {
-  delay(5000);
   Serial.begin(9600);
 
   keypad.initialize();
