@@ -29,7 +29,7 @@ public:
 private:
     static bool isPlaying;
 
-    static int frameCount;
+    static bool playFinished;
     static int trackNameLength;
     static const char* trackName;
     static const char *tracksByIndex[11];

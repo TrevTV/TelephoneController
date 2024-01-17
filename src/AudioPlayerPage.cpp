@@ -18,15 +18,15 @@ const char *AudioPlayerPage::tracksByIndex[11] =
         "gone",
         "Ghost",
         "The Honcho",
-        "Never Say No"
-    };
+        "Never Say No"};
 
 uint8_t pauseIcon[8] = {0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b};
 uint8_t playIcon[8] = {0x10, 0x18, 0x1c, 0x1e, 0x1e, 0x1c, 0x18, 0x10};
+uint8_t stopIcon[8] = {0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f};
 
 int AudioPlayerPage::trackNumber = 0;
 bool AudioPlayerPage::isPlaying = true;
-int AudioPlayerPage::frameCount = 0;
+bool AudioPlayerPage::playFinished = false;
 int AudioPlayerPage::trackNameLength = 0;
 const char *AudioPlayerPage::trackName = "";
 
@@ -39,13 +39,23 @@ void AudioPlayerPage::start()
 
     lcd.createChar(0, pauseIcon);
     lcd.createChar(1, playIcon);
-    
+    lcd.createChar(2, stopIcon);
+
     refreshDisplay();
 }
 
 void AudioPlayerPage::loop()
 {
-    frameCount++;
+    if (keypad.isButtonDown(Button::STAR))
+    {
+        dfmp3.stop();
+        loadPage(AudioSelectionPage::ID);
+    }
+
+    if (playFinished)
+    {
+        return;
+    }
 
     if (keypad.isButtonDown(Button::FIVE))
     {
@@ -74,29 +84,29 @@ void AudioPlayerPage::loop()
         refreshDisplay();
     }
 
-    if (keypad.isButtonDown(Button::STAR))
+    if (dfmp3.getStatus().state == DfMp3_StatusState_Idle)
     {
-        dfmp3.stop();
-        //loadPage(AudioSelectionPage::ID);
+        onTrackComplete();
     }
-
-    delay(1);
 }
 
-void AudioPlayerPage::refreshDisplay() {
+void AudioPlayerPage::refreshDisplay()
+{
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print(trackName);
 
     lcd.setCursor(0, 1);
-    lcd.write(isPlaying ? 1 : 0);
+    lcd.write(playFinished ? 2 : isPlaying ? 0 : 1);
 
     lcd.print(" VOL: ");
     lcd.print(volume);
     lcd.print(" ");
 }
 
-void AudioPlayerPage::onTrackComplete() {
+void AudioPlayerPage::onTrackComplete()
+{
+    playFinished = true;
     isPlaying = false;
     refreshDisplay();
     lcd.print("FINISH");

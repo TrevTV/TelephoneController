@@ -13,11 +13,6 @@ public:
   }
   static void OnPlayFinished([[maybe_unused]] DFMiniMp3<SoftwareSerial, Mp3Notify> &mp3, [[maybe_unused]] DfMp3_PlaySources source, uint16_t track)
   {
-    // TODO: doesn't work for some reason? it did before
-    Serial.println("Mp3Notify::OnPlayFinished()");
-    Serial.print("Track: ");
-    Serial.println(track);
-    AudioPlayerPage::onTrackComplete();
   }
   static void OnPlaySourceOnline([[maybe_unused]] DFMiniMp3<SoftwareSerial, Mp3Notify> &mp3, DfMp3_PlaySources source)
   {
