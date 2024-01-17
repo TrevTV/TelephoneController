@@ -97,7 +97,7 @@ void AudioPlayerPage::refreshDisplay()
     lcd.print(trackName);
 
     lcd.setCursor(0, 1);
-    lcd.write(playFinished ? 2 : isPlaying ? 0 : 1);
+    lcd.write(playFinished ? 2 : (isPlaying ? 0 : 1));
 
     lcd.print(" VOL: ");
     lcd.print(volume);
