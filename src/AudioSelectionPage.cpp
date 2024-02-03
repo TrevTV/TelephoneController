@@ -13,57 +13,57 @@ void AudioSelectionPage::loop()
 {
     if (keypad.isButtonDown(Button::ONE))
     {
-        AudioPlayerPage::trackNumber = 1;
+        AudioPlayerPage::resetWithTrack(1);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::TWO))
     {
-        AudioPlayerPage::trackNumber = 2;
+        AudioPlayerPage::resetWithTrack(2);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::THREE))
     {
-        AudioPlayerPage::trackNumber = 3;
+        AudioPlayerPage::resetWithTrack(3);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::FOUR))
     {
-        AudioPlayerPage::trackNumber = 4;
+        AudioPlayerPage::resetWithTrack(4);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::FIVE))
     {
-        AudioPlayerPage::trackNumber = 5;
+        AudioPlayerPage::resetWithTrack(5);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::SIX))
     {
-        AudioPlayerPage::trackNumber = 6;
+        AudioPlayerPage::resetWithTrack(6);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::SEVEN))
     {
-        AudioPlayerPage::trackNumber = 7;
+        AudioPlayerPage::resetWithTrack(7);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::EIGHT))
     {
-        AudioPlayerPage::trackNumber = 8;
+        AudioPlayerPage::resetWithTrack(8);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::NINE))
     {
-        AudioPlayerPage::trackNumber = 9;
+        AudioPlayerPage::resetWithTrack(9);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::ZERO))
     {
-        AudioPlayerPage::trackNumber = 10;
+        AudioPlayerPage::resetWithTrack(10);
         loadPage(AudioPlayerPage::ID);
     }
     if (keypad.isButtonDown(Button::POUND))
     {
-        AudioPlayerPage::trackNumber = 11;
+        AudioPlayerPage::resetWithTrack(11);
         loadPage(AudioPlayerPage::ID);
     }
 

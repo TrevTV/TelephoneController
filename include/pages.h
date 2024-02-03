@@ -26,6 +26,7 @@ public:
     static void start();
     static void loop();
     static void onTrackComplete();
+    static void resetWithTrack(int track);
 private:
     static bool isPlaying;
 

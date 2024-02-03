@@ -119,3 +119,11 @@ void AudioPlayerPage::onTrackComplete()
     refreshDisplay();
     lcd.print("FINISH");
 }
+
+void AudioPlayerPage::resetWithTrack(int track)
+{
+    trackNumber = track;
+    isPlaying = true;
+    playFinished = false;
+    frame = 0;
+}
