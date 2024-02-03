@@ -8,6 +8,8 @@ public:
     static const int ID = 0;
     static void start();
     static void loop();
+private:
+    static int frame;
 };
 
 class AudioSelectionPage
