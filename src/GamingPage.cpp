@@ -14,9 +14,10 @@ void GamingPage::start()
 
 void GamingPage::loop()
 {
-    /* if (keypad.isButtonDown(Button::STAR)) {
-        loadPage(new MainPage());
-    } */
+    if (keypad.isButtonDown(Button::STAR)) {
+        loadPage(MainPage::ID);
+        return;
+    }
 
     if (keypad.isButton(Button::FIVE)) {
         Keyboard.press('w');

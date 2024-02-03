@@ -15,7 +15,8 @@ void NumpadPage::start()
 void NumpadPage::loop()
 {
     if (keypad.isButtonDown(Button::STAR)) {
-        //loadPage(new MainPage());
+        loadPage(MainPage::ID);
+        return;
     }
 
     for (int i = 0; i < 12; i++)
