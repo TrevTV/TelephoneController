@@ -30,6 +30,8 @@ bool AudioPlayerPage::playFinished = false;
 int AudioPlayerPage::trackNameLength = 0;
 const char *AudioPlayerPage::trackName = "";
 
+int AudioPlayerPage::frame = 0;
+
 void AudioPlayerPage::start()
 {
     trackName = tracksByIndex[trackNumber - 1];
@@ -56,6 +58,8 @@ void AudioPlayerPage::loop()
     {
         return;
     }
+
+    frame++;
 
     if (keypad.isButtonDown(Button::FIVE))
     {
@@ -84,9 +88,13 @@ void AudioPlayerPage::loop()
         refreshDisplay();
     }
 
-    if (dfmp3.getStatus().state == DfMp3_StatusState_Idle)
+    if (frame % 50000 == 0)
     {
-        onTrackComplete();
+        if (dfmp3.getStatus().state == DfMp3_StatusState_Idle)
+        {
+            onTrackComplete();
+        }
+        frame = 0;
     }
 }
 

@@ -33,6 +33,8 @@ private:
     static int trackNameLength;
     static const char* trackName;
     static const char *tracksByIndex[11];
+
+    static int frame;
     
     static void refreshDisplay();
 };
